@@ -15,6 +15,12 @@ function App() {
     fetchRepositories();
   }, []);
 
+  useEffect(() => {
+    const favoritedRepositories = repositories.filter(repository => repository.favorite);
+
+    document.title = `Você tem ${ favoritedRepositories.length } favoritos`;
+  }, [repositories]);
+
   function handleFavorite(id) {
     const updatedRepositories = repositories.map(repository => {
       return repository.id === id
