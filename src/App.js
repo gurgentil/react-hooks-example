@@ -15,10 +15,26 @@ function App() {
     fetchRepositories();
   }, []);
 
+  function markAsFavorite(id) {
+    const updatedRepositories = repositories.map(repository => {
+      return repository.id === id
+        ? { ...repository, favorite: true }
+        : repository;
+    });
+
+    setRepositories(updatedRepositories);
+  }
+
   return (
     <>
       <ul>
-        { repositories.map(repository => <li key={ repository.id }>{ repository.name }</li>) }
+        { repositories.map(repository => (
+          <li key={ repository.id }>
+            { repository.name }
+            { repository.favorite && <span>(Favorito)</span> }
+            <button onClick={ () => markAsFavorite(repository.id) }>Favoritar</button>
+          </li>
+        )) }
       </ul>
     </>
   );
